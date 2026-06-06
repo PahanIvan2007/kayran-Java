@@ -2,6 +2,7 @@ package com.waterplatform.controller.web;
 
 import com.waterplatform.dto.*;
 import com.waterplatform.service.*;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +25,11 @@ public class HomeController {
         this.boatService = boatService; this.rentalService = rentalService;
         this.routeService = routeService; this.tournamentService = tournamentService;
         this.inclusiveService = inclusiveService;
+    }
+
+    @GetMapping("/healthz")
+    public ResponseEntity<String> health() {
+        return ResponseEntity.ok("OK");
     }
 
     @GetMapping("/")
