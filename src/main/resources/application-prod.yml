@@ -1,0 +1,17 @@
+server:
+  port: ${PORT:10000}
+
+spring:
+  h2:
+    console:
+      enabled: false
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+  sql:
+    init:
+      mode: always
+    data-locations: classpath:data.sql
+  thymeleaf:
+    cache: true
