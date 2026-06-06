@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head th:replace="~{fragments/nav::head(${event.title}, 'events')}"></head>
+<body>
+<div th:replace="~{fragments/nav::nav('events')}"></div>
+
+<div class="container py-3">
+  <a href="/events" class="btn btn-sm btn-outline-secondary rounded-pill mb-3 touch-btn"><i class="bi bi-arrow-left"></i> Назад</a>
+
+  <div class="water-card">
+    <div class="card-header bg-transparent d-flex justify-content-between align-items-center border-bottom">
+      <h4 class="mb-0 fw-bold" th:text="${event.title}"></h4>
+      <span class="badge badge-status fs-6" th:classappend="${event.status.name() == 'active' ? 'bg-success' : event.status.name() == 'planned' ? 'bg-primary' : event.status.name() == 'completed' ? 'bg-secondary' : 'bg-danger'}" th:text="${event.status}"></span>
+    </div>
+    <div class="card-body">
+      <div class="row g-3">
+        <div class="col-6 col-md-4">
+          <div class="text-center p-3 bg-light rounded-3">
+            <div class="text-muted small">Тип</div>
+            <div class="fw-semibold"><span class="badge bg-secondary bg-opacity-10 text-secondary fs-6 mt-1" th:text="${event.eventType}"></span></div>
+          </div>
+        </div>
+        <div class="col-6 col-md-4">
+          <div class="text-center p-3 bg-light rounded-3">
+            <div class="text-muted small">Дата</div>
+            <div class="fw-semibold small mt-1" th:text="${event.startTime != null ? #temporals.format(event.startTime, 'dd.MM.yyyy') : '-'}"></div>
+          </div>
+        </div>
+        <div class="col-6 col-md-4">
+          <div class="text-center p-3 bg-light rounded-3">
+            <div class="text-muted small">Время</div>
+            <div class="fw-semibold small mt-1" th:text="${event.startTime != null ? #temporals.format(event.startTime, 'HH:mm') : '-'}"></div>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="row g-2">
+        <div class="col-6 col-md-3"><strong class="small text-muted">ID</strong><br><span class="small" th:text="${event.id}"></span></div>
+        <div class="col-6 col-md-3"><strong class="small text-muted">Точка</strong><br><span class="small" th:text="${event.pointId} ?: '-'"></span></div>
+        <div class="col-6 col-md-3"><strong class="small text-muted">Маршрут</strong><br><span class="small" th:text="${event.routeId} ?: '-'"></span></div>
+        <div class="col-6 col-md-3"><strong class="small text-muted">Создатель</strong><br><span class="small" th:text="${event.createdBy} ?: '-'"></span></div>
+        <div class="col-6 col-md-3" th:if="${event.endTime}"><strong class="small text-muted">Конец</strong><br><span class="small" th:text="${#temporals.format(event.endTime, 'dd.MM.yyyy HH:mm')}"></span></div>
+      </div>
+      <div class="mt-3" th:if="${event.description}">
+        <hr>
+        <p class="card-text" th:text="${event.description}"></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-3 d-flex gap-2">
+    <a th:href="@{/api/qr/event/{id}(id=${event.id})}" class="btn btn-outline-success btn-sm rounded-pill touch-btn" target="_blank"><i class="bi bi-qr-code"></i> QR-код события</a>
+  </div>
+</div>
+
+<div th:replace="~{fragments/nav::bottomNav('events')}"></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

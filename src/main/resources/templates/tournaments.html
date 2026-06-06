@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head th:replace="~{fragments/nav::head('Спорт', 'tournaments')}"></head>
+<body>
+<div th:replace="~{fragments/nav::nav('tournaments')}"></div>
+
+<div class="container py-3">
+  <div class="page-header">
+    <h3 class="mb-0"><i class="bi bi-trophy text-danger"></i> Спорт</h3>
+    <p class="text-muted">Турниры и команды</p>
+  </div>
+
+  <div class="row g-3">
+    <div class="col-12 col-md-6">
+      <h5 class="fw-semibold mb-2"><i class="bi bi-trophy"></i> Турниры <span class="badge bg-danger rounded-pill align-middle" th:text="${#lists.size(tournaments)}"></span></h5>
+      <div th:if="${!#lists.isEmpty(tournaments)}">
+        <div class="water-card">
+          <div class="item-row tournament-card" th:each="t : ${tournaments}">
+            <div class="item-main">
+              <div class="item-title" th:text="${t.title}"></div>
+              <div class="item-meta">
+                <span class="badge bg-secondary bg-opacity-10 text-secondary me-1" th:text="${t.format} ?: 'standard'"></span>
+                Статус: <span th:text="${t.status} ?: 'active'"></span>
+              </div>
+            </div>
+            <div class="item-action">
+              <span class="badge badge-status" th:classappend="${t.status == 'active' ? 'bg-success' : t.status == 'planned' ? 'bg-primary' : 'bg-secondary'}" th:text="${t.status} ?: 'active'"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="empty-state" th:if="${#lists.isEmpty(tournaments)}">
+        <i class="bi bi-trophy"></i>
+        <p class="mb-0">Нет турниров</p>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6">
+      <h5 class="fw-semibold mb-2"><i class="bi bi-people"></i> Команды <span class="badge bg-primary rounded-pill align-middle" th:text="${#lists.size(teams)}"></span></h5>
+      <div th:if="${!#lists.isEmpty(teams)}">
+        <div class="water-card">
+          <div class="item-row team-card" th:each="tm : ${teams}">
+            <div class="item-main">
+              <div class="item-title" th:text="${tm.title}"></div>
+              <div class="item-meta">Капитан: <span th:text="${tm.captainUserId}"></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="empty-state" th:if="${#lists.isEmpty(teams)}">
+        <i class="bi bi-people"></i>
+        <p class="mb-0">Нет команд</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div th:replace="~{fragments/nav::bottomNav('tournaments')}"></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

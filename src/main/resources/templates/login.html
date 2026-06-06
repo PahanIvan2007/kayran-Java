@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head th:replace="~{fragments/nav::head('Вход', '')}"></head>
+<body class="d-flex align-items-center" style="min-height:100vh;background:linear-gradient(135deg,#e8f4f8,#f0f8ff)">
+<div class="container">
+<div class="row justify-content-center">
+<div class="col-11 col-sm-8 col-md-5 col-lg-4">
+<div class="card border-0 shadow-lg" style="border-radius:16px">
+<div class="card-body p-4 p-md-5 text-center">
+<div class="mb-4">
+<div class="mx-auto mb-3 d-flex align-items-center justify-content-center" style="width:64px;height:64px;background:linear-gradient(135deg,#023e8a,#0077b6);border-radius:16px">
+<i class="bi bi-droplet-half text-white fs-3"></i>
+</div>
+<h4 class="fw-bold">Water Platform</h4>
+<p class="text-muted small">Войдите в свою учётную запись</p>
+</div>
+
+<div th:if="${param.error}" class="alert alert-danger py-2 small">
+<i class="bi bi-exclamation-triangle"></i> Неверное имя пользователя или пароль
+</div>
+<div th:if="${param.logout}" class="alert alert-info py-2 small">
+<i class="bi bi-info-circle"></i> Вы вышли из системы
+</div>
+<div th:if="${param.registered}" class="alert alert-success py-2 small">
+<i class="bi bi-check-circle"></i> Регистрация успешна! Войдите.
+</div>
+
+<form th:action="@{/auth/login}" method="post">
+<div class="mb-3 text-start">
+<label class="form-label small fw-semibold">Имя пользователя</label>
+<div class="input-group">
+<span class="input-group-text bg-light"><i class="bi bi-person"></i></span>
+<input type="text" name="username" class="form-control" placeholder="admin" required autofocus>
+</div>
+</div>
+<div class="mb-4 text-start">
+<label class="form-label small fw-semibold">Пароль</label>
+<div class="input-group">
+<span class="input-group-text bg-light"><i class="bi bi-lock"></i></span>
+<input type="password" name="password" class="form-control" placeholder="••••" required>
+</div>
+</div>
+<button type="submit" class="btn btn-primary w-100 py-2 fw-semibold rounded-pill touch-btn">
+<i class="bi bi-box-arrow-in-right"></i> Войти
+</button>
+</form>
+
+<hr class="my-4">
+<p class="small text-muted mb-0">Нет аккаунта? <a href="/auth/register" class="fw-semibold">Зарегистрироваться</a></p>
+<p class="small text-muted mt-2">Тестовые: admin/admin, user/user</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

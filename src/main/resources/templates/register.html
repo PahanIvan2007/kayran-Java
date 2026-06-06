@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head th:replace="~{fragments/nav::head('Регистрация', '')}"></head>
+<body class="py-4" style="background:linear-gradient(135deg,#e8f4f8,#f0f8ff)">
+<div class="container">
+<div class="row justify-content-center">
+<div class="col-11 col-sm-8 col-md-5 col-lg-4">
+<div class="card border-0 shadow-lg" style="border-radius:16px">
+<div class="card-body p-4 p-md-5">
+<div class="text-center mb-4">
+<div class="mx-auto mb-3 d-flex align-items-center justify-content-center" style="width:56px;height:56px;background:linear-gradient(135deg,#023e8a,#0077b6);border-radius:14px">
+<i class="bi bi-person-plus text-white fs-4"></i>
+</div>
+<h4 class="fw-bold">Регистрация</h4>
+<p class="text-muted small">Создайте учётную запись</p>
+</div>
+
+<div th:if="${error}" class="alert alert-danger py-2 small"><i class="bi bi-exclamation-triangle"></i> <span th:text="${error}"></span></div>
+
+<form th:action="@{/auth/register}" method="post">
+<div class="row g-2 mb-2">
+<div class="col-6">
+<label class="form-label small fw-semibold">Имя</label>
+<input type="text" name="firstName" class="form-control" required>
+</div>
+<div class="col-6">
+<label class="form-label small fw-semibold">Фамилия</label>
+<input type="text" name="lastName" class="form-control" required>
+</div>
+</div>
+<div class="mb-2">
+<label class="form-label small fw-semibold">ID</label>
+<input type="text" name="id" class="form-control" placeholder="U000010" required>
+</div>
+<div class="mb-2">
+<label class="form-label small fw-semibold">Имя пользователя</label>
+<input type="text" name="username" class="form-control" placeholder="ivan" required minlength="3">
+</div>
+<div class="mb-2">
+<label class="form-label small fw-semibold">Email</label>
+<input type="email" name="email" class="form-control" placeholder="ivan@example.com">
+</div>
+<div class="mb-2">
+<label class="form-label small fw-semibold">Телефон</label>
+<input type="tel" name="phone" class="form-control" placeholder="+7 999 123 45 67">
+</div>
+<div class="mb-2">
+<label class="form-label small fw-semibold">Роль</label>
+<select name="role" class="form-select">
+<option th:each="r : ${roles}" th:value="${r.name()}" th:text="${r.name()}"></option>
+</select>
+</div>
+<div class="mb-3">
+<label class="form-label small fw-semibold">Пароль</label>
+<input type="password" name="password" class="form-control" placeholder="минимум 4 символа" required minlength="4">
+</div>
+<button type="submit" class="btn btn-primary w-100 py-2 fw-semibold rounded-pill touch-btn">
+<i class="bi bi-person-plus"></i> Создать аккаунт
+</button>
+</form>
+
+<hr class="my-4">
+<p class="small text-center text-muted mb-0">Уже есть аккаунт? <a href="/auth/login" class="fw-semibold">Войти</a></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

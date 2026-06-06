@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head th:replace="~{fragments/nav::head('События', 'events')}"></head>
+<body>
+<div th:replace="~{fragments/nav::nav('events')}"></div>
+
+<div class="container py-3">
+  <div class="page-header d-flex justify-content-between align-items-center">
+    <div>
+      <h3 class="mb-0"><i class="bi bi-calendar-event text-success"></i> События</h3>
+      <p class="text-muted mb-0" th:text="${#lists.size(events)} + ' событий'"></p>
+    </div>
+  </div>
+
+  <div class="search-bar mb-3">
+    <i class="bi bi-search search-icon"></i>
+    <input type="text" class="form-control" id="eventSearch" placeholder="Поиск по названию..." oninput="filterEvents(this.value)">
+  </div>
+
+  <div class="d-flex gap-2 mb-3 flex-wrap" id="statusFilters">
+    <span class="filter-badge active" data-filter="all" onclick="setFilter(this,'all')">Все</span>
+    <span class="filter-badge" data-filter="active" onclick="setFilter(this,'active')"><i class="bi bi-play-fill text-success"></i> Активные</span>
+    <span class="filter-badge" data-filter="planned" onclick="setFilter(this,'planned')"><i class="bi bi-clock text-primary"></i> Запланированные</span>
+    <span class="filter-badge" data-filter="completed" onclick="setFilter(this,'completed')"><i class="bi bi-check-lg text-secondary"></i> Завершённые</span>
+  </div>
+
+  <div th:if="${!#lists.isEmpty(events)}">
+    <div class="row g-2" id="eventList">
+      <div class="col-12" th:each="e : ${events}" th:attr="data-search=${e.title}, data-status=${e.status.name()}">
+        <a th:href="@{/events/{id}(id=${e.id})}" class="text-decoration-none">
+          <div class="water-card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-start">
+                <div class="flex-grow-1 me-2">
+                  <div class="card-title mb-1" th:text="${e.title}"></div>
+                  <div class="card-text">
+                    <span class="badge bg-secondary bg-opacity-10 text-secondary me-1" th:text="${e.eventType}"></span>
+                    <span th:if="${e.startTime != null}" class="text-muted small" th:text="${#temporals.format(e.startTime, 'dd.MM.yyyy HH:mm')}"></span>
+                    <span th:if="${e.pointId}" class="text-muted small ms-2"><i class="bi bi-geo-alt"></i> <span th:text="${e.pointId}"></span></span>
+                  </div>
+                </div>
+                <span class="badge badge-status flex-shrink-0" th:classappend="${e.status.name() == 'active' ? 'bg-success' : e.status.name() == 'planned' ? 'bg-primary' : e.status.name() == 'completed' ? 'bg-secondary' : 'bg-danger'}" th:text="${e.status}"></span>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="empty-state" th:if="${#lists.isEmpty(events)}">
+    <i class="bi bi-calendar-event"></i>
+    <p class="mb-0">Нет событий</p>
+  </div>
+</div>
+
+<div th:replace="~{fragments/nav::bottomNav('events')}"></div>
+<script>
+let currentFilter = 'all';
+function setFilter(el, f) {
+  currentFilter = f;
+  document.querySelectorAll('#statusFilters .filter-badge').forEach(x => x.classList.remove('active'));
+  el.classList.add('active');
+  applyFilters();
+}
+function filterEvents(val) {
+  document.querySelectorAll('#eventList .col-12').forEach(el => el.dataset.searchText = val);
+  applyFilters();
+}
+function applyFilters() {
+  const q = (document.getElementById('eventSearch').value || '').toLowerCase().trim();
+  document.querySelectorAll('#eventList .col-12').forEach(el => {
+    const s = (el.dataset.search || '').toLowerCase();
+    const st = el.dataset.status || '';
+    const matchSearch = !q || s.includes(q);
+    const matchFilter = currentFilter === 'all' || st === currentFilter;
+    el.style.display = (matchSearch && matchFilter) ? '' : 'none';
+  });
+}
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

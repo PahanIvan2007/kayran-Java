@@ -1,0 +1,307 @@
+:root {
+  --ocean-dark: #023e8a;
+  --ocean-primary: #0077b6;
+  --ocean-light: #0096c7;
+  --ocean-lighter: #48cae4;
+  --ocean-lightest: #90e0ef;
+  --ocean-bg: #f0f8ff;
+  --ocean-card: #ffffff;
+  --text-dark: #1a1a2e;
+  --text-muted: #6b7280;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --shadow: 0 2px 12px rgba(0,119,182,0.08);
+  --shadow-hover: 0 6px 24px rgba(0,119,182,0.15);
+  --transition: all 0.2s ease;
+}
+
+body {
+  background: var(--ocean-bg);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: var(--text-dark);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.water-nav {
+  background: linear-gradient(135deg, var(--ocean-dark), var(--ocean-primary)) !important;
+  box-shadow: 0 2px 16px rgba(2,62,138,0.2);
+}
+.water-nav .navbar-brand {
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+.water-nav .nav-link {
+  font-size: 0.875rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-sm);
+  transition: var(--transition);
+}
+.water-nav .nav-link:hover,
+.water-nav .nav-link.active {
+  background: rgba(255,255,255,0.12);
+}
+.water-nav .nav-link i {
+  margin-right: 4px;
+}
+
+.page-header {
+  padding: 1.25rem 0 0.5rem;
+}
+.page-header h2, .page-header h3 {
+  font-weight: 700;
+  color: var(--text-dark);
+}
+.page-header .text-muted {
+  font-size: 0.9rem;
+}
+
+.water-card {
+  background: var(--ocean-card);
+  border: none;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  overflow: hidden;
+}
+.water-card:hover {
+  box-shadow: var(--shadow-hover);
+}
+.water-card .card-body {
+  padding: 1rem;
+}
+.water-card .card-title {
+  font-weight: 600;
+  font-size: 1rem;
+}
+.water-card .card-text {
+  font-size: 0.85rem;
+}
+
+.water-stat-card {
+  border: none;
+  border-radius: var(--radius);
+  transition: var(--transition);
+  cursor: pointer;
+  position: relative;
+}
+.water-stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+.water-stat-card .card-body {
+  padding: 1.25rem 1rem;
+}
+.water-stat-card .stat-icon {
+  font-size: 1.75rem;
+  margin-bottom: 0.25rem;
+}
+.water-stat-card h3 {
+  font-weight: 800;
+  font-size: 1.75rem;
+  margin-bottom: 0;
+}
+.water-stat-card p {
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.badge-status {
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.3em 0.65em;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.search-bar {
+  position: relative;
+}
+.search-bar input {
+  border-radius: 24px;
+  border: 2px solid #e5e7eb;
+  padding: 0.6rem 1rem 0.6rem 2.5rem;
+  font-size: 0.9rem;
+  background: white;
+  transition: var(--transition);
+}
+.search-bar input:focus {
+  border-color: var(--ocean-light);
+  box-shadow: 0 0 0 3px rgba(0,150,199,0.15);
+  outline: none;
+}
+.search-bar .search-icon {
+  position: absolute;
+  left: 0.85rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.filter-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0.4rem 0.85rem;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  border: 1px solid #e5e7eb;
+  background: white;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: var(--transition);
+  user-select: none;
+}
+.filter-badge:hover,
+.filter-badge.active {
+  background: var(--ocean-primary);
+  color: white;
+  border-color: var(--ocean-primary);
+}
+.filter-badge i {
+  font-size: 0.75rem;
+}
+
+.touch-btn {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--text-muted);
+}
+.empty-state i {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 1rem;
+  opacity: 0.4;
+}
+
+.item-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.875rem 1rem;
+  border-bottom: 1px solid #f3f4f6;
+  transition: var(--transition);
+}
+.item-row:last-child {
+  border-bottom: none;
+}
+.item-row:hover {
+  background: #f8faff;
+}
+.item-row .item-main {
+  flex: 1;
+  min-width: 0;
+}
+.item-row .item-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 2px;
+}
+.item-row .item-meta {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+.item-row .item-action {
+  flex-shrink: 0;
+  margin-left: 0.75rem;
+}
+
+@media (max-width: 576px) {
+  .container {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  .water-stat-card h3 {
+    font-size: 1.4rem;
+  }
+  .water-stat-card .stat-icon {
+    font-size: 1.4rem;
+  }
+  .page-header {
+    padding: 1rem 0 0.25rem;
+  }
+  .water-card .card-body {
+    padding: 0.875rem;
+  }
+  .navbar-brand {
+    font-size: 1.05rem;
+  }
+  .touch-btn {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.75rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .water-card .card-body {
+    padding: 1.25rem;
+  }
+}
+
+.stretched-link::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 1;
+}
+
+.list-card {
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.tournament-card {
+  border-left: 4px solid var(--ocean-primary);
+}
+.team-card {
+  border-left: 4px solid var(--ocean-lighter);
+}
+
+.mobile-bottom-nav {
+  display: none;
+}
+@media (max-width: 576px) {
+  .mobile-bottom-nav {
+    display: flex;
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: white;
+    border-top: 1px solid #e5e7eb;
+    padding: 0.35rem 0;
+    z-index: 1050;
+    box-shadow: 0 -2px 12px rgba(0,0,0,0.06);
+  }
+  .mobile-bottom-nav a {
+    flex: 1;
+    text-align: center;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.6rem;
+    padding: 0.2rem 0;
+    transition: var(--transition);
+  }
+  .mobile-bottom-nav a i {
+    font-size: 1.15rem;
+    display: block;
+    margin-bottom: 1px;
+  }
+  .mobile-bottom-nav a.active {
+    color: var(--ocean-primary);
+    font-weight: 600;
+  }
+  body {
+    padding-bottom: 60px;
+  }
+}
